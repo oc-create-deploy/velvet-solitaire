@@ -1,29 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:solitaire_flutter/invert_solitaire/invert_playscreen.dart';
-import 'package:solitaire_flutter/playscreen.dart';
-import 'package:solitaire_flutter/screens/options_menu.dart';
-import 'package:solitaire_flutter/screens/rules.dart';
-import 'package:solitaire_flutter/screens/startscreen.dart';
-import 'package:solitaire_flutter/spider/spider_screen.dart';
+import 'package:velvet_solitaire/invert_solitaire/invert_playscreen.dart';
+import 'package:velvet_solitaire/playscreen.dart';
+import 'package:velvet_solitaire/screens/options_menu.dart';
+import 'package:velvet_solitaire/screens/rules.dart';
+import 'package:velvet_solitaire/spider/spider_screen.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Solitaire',
+      title: 'Velvet Solitaire',
       theme: ThemeData.light(),
       debugShowCheckedModeBanner: false,
-      home: PlayScreen(),
       initialRoute: '/menu',
       routes: {
-        '.':(context) => StartScreen(),
-        '/menu' :(context) => Options(),
-        '/klondike' : (context) => PlayScreen(),
-        '/rules' : (context)=> Rules(),
-        '/spider':(context) => SpiderPlayScreen(),
-        '/invert': (context) => InvertPlayScreen()
+        '/menu': (context) => Options(),
+        '/klondike': (context) => PlayScreen(),
+        '/rules': (context) => Rules(),
+        '/spider': (context) => SpiderPlayScreen(),
+        '/invert': (context) => InvertPlayScreen(),
       },
     );
   }

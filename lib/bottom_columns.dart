@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:solitaire_flutter/moving_card.dart';
+import 'package:velvet_solitaire/moving_card.dart';
 // import 'playscreen.dart';
 import 'playing_card.dart';
 
-typedef Null CardAcceptCallback(List<PlayingCard> card, int fromIndex);
+typedef CardAcceptCallback =
+    void Function(List<PlayingCard> cards, int fromIndex);
 
 // This is a stack of overlayed cards (implemented using a stack)
 class CardColumn extends StatefulWidget {
@@ -20,14 +21,16 @@ class CardColumn extends StatefulWidget {
   final bool isSpider2;
   final bool invert;
 
-  CardColumn(
-      {@required this.cards,
-      @required this.onCardsAdded,
-      @required this.columnIndex,
-      this.klondike = true,
-      this.isSpider1 = false,
-      this.isSpider2 = false,
-      this.invert = false});
+  const CardColumn({
+    super.key,
+    required this.cards,
+    required this.onCardsAdded,
+    required this.columnIndex,
+    this.klondike = true,
+    this.isSpider1 = false,
+    this.isSpider2 = false,
+    this.invert = false,
+  });
 
   @override
   _CardColumnState createState() => _CardColumnState();
@@ -43,7 +46,7 @@ class _CardColumnState extends State<CardColumn> {
           height: 13.0 * 15.0,
           width: 50.0,
           margin: EdgeInsets.all(2.0),
-          child: DragTarget<Map>(
+          child: DragTarget<Map<String, dynamic>>(
             builder: (context, listOne, listTwo) {
               return Stack(
                 children: widget.cards.map((card) {
@@ -51,14 +54,17 @@ class _CardColumnState extends State<CardColumn> {
                   return TransformCard(
                     playingCard: card,
                     transformIndex: index,
-                    attachedCards:
-                        widget.cards.sublist(index, widget.cards.length),
+                    attachedCards: widget.cards.sublist(
+                      index,
+                      widget.cards.length,
+                    ),
                     columnIndex: widget.columnIndex,
                   );
                 }).toList(),
               );
             },
-            onWillAccept: (value) {
+            onWillAcceptWithDetails: (details) {
+              final value = details.data;
               if (widget.klondike) {
                 // If empty, accept
                 List<PlayingCard> draggedCardEmptyList = value["cards"];
@@ -77,10 +83,12 @@ class _CardColumnState extends State<CardColumn> {
                 // Get dragged cards list
                 List<PlayingCard> draggedCards = value["cards"];
                 PlayingCard firstCard = draggedCards.first;
-                int lastColumnIndex =
-                    CardType.values.indexOf(widget.cards.last.value);
-                int firstCardIndex =
-                    CardType.values.indexOf(draggedCards.first.value);
+                int lastColumnIndex = CardType.values.indexOf(
+                  widget.cards.last.value,
+                );
+                int firstCardIndex = CardType.values.indexOf(
+                  draggedCards.first.value,
+                );
 
                 if (widget.cards.last.getCardColor() ==
                     firstCard.getCardColor()) {
@@ -106,8 +114,9 @@ class _CardColumnState extends State<CardColumn> {
                   }
                 }
 
-                int lastCardIndex =
-                    CardType.values.indexOf(widget.cards.last.value);
+                int lastCardIndex = CardType.values.indexOf(
+                  widget.cards.last.value,
+                );
                 int firstCardIndex = CardType.values.indexOf(card.value);
 
                 if (widget.cards.last.suit == card.suit) {
@@ -133,10 +142,12 @@ class _CardColumnState extends State<CardColumn> {
                 // Get dragged cards list
                 List<PlayingCard> draggedCards = value["cards"];
                 PlayingCard firstCard = draggedCards.first;
-                int lastColumnIndex =
-                    CardType.values.indexOf(widget.cards.last.value);
-                int firstCardIndex =
-                    CardType.values.indexOf(draggedCards.first.value);
+                int lastColumnIndex = CardType.values.indexOf(
+                  widget.cards.last.value,
+                );
+                int firstCardIndex = CardType.values.indexOf(
+                  draggedCards.first.value,
+                );
 
                 if (widget.cards.last.getCardColor() ==
                     firstCard.getCardColor()) {
@@ -149,11 +160,13 @@ class _CardColumnState extends State<CardColumn> {
                   return true;
                 }
               }
+              return false;
             },
-            onAccept: (value) {
+            onAcceptWithDetails: (details) {
+              final value = details.data;
               widget.onCardsAdded(
-                value["cards"],
-                value["fromIndex"],
+                value["cards"] as List<PlayingCard>,
+                value["fromIndex"] as int,
               );
             },
           ),

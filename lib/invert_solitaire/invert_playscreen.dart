@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:solitaire_flutter/bottom_columns.dart';
-import 'package:solitaire_flutter/moving_card.dart';
+import 'package:velvet_solitaire/bottom_columns.dart';
+import 'package:velvet_solitaire/moving_card.dart';
 // import 'solitaire.dart';
 import '../playing_card.dart';
 import '../top_row.dart';
@@ -20,13 +20,13 @@ class _PlayScreenState extends State<InvertPlayScreen> {
 
   // list of cards in each column
 
-  static List<PlayingCard> bottom0 = new List();
-  static List<PlayingCard> bottom1 = new List();
-  static List<PlayingCard> bottom2 = new List();
-  static List<PlayingCard> bottom3 = new List();
-  static List<PlayingCard> bottom4 = new List();
-  static List<PlayingCard> bottom5 = new List();
-  static List<PlayingCard> bottom6 = new List();
+  static List<PlayingCard> bottom0 = [];
+  static List<PlayingCard> bottom1 = [];
+  static List<PlayingCard> bottom2 = [];
+  static List<PlayingCard> bottom3 = [];
+  static List<PlayingCard> bottom4 = [];
+  static List<PlayingCard> bottom5 = [];
+  static List<PlayingCard> bottom6 = [];
 
   List<List<PlayingCard>> bottomDecks = [
     bottom0,
@@ -35,25 +35,27 @@ class _PlayScreenState extends State<InvertPlayScreen> {
     bottom3,
     bottom4,
     bottom5,
-    bottom6
+    bottom6,
   ];
 
   // the cards that are shown and the cards that are not present
 
-  List<PlayingCard> cardDeckOpened = new List();
-  List<PlayingCard> cardDeckClosed = new List();
+  List<PlayingCard> cardDeckOpened = [];
+  List<PlayingCard> cardDeckClosed = [];
 
   //deck that is formed from ACe to King.
 
-  List<PlayingCard> finalHeartsDeck = new List();
-  List<PlayingCard> finalClubsDeck = new List();
-  List<PlayingCard> finalSpadesDeck = new List();
-  List<PlayingCard> finalDiamondsDeck = new List();
+  List<PlayingCard> finalHeartsDeck = [];
+  List<PlayingCard> finalClubsDeck = [];
+  List<PlayingCard> finalSpadesDeck = [];
+  List<PlayingCard> finalDiamondsDeck = [];
 
   void initState() {
     super.initState();
-    SystemChrome.setPreferredOrientations(
-        [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.portraitUp,
+    ]);
     _startFunction();
   }
 
@@ -63,11 +65,7 @@ class _PlayScreenState extends State<InvertPlayScreen> {
 
     CardSuit.values.forEach((suit) {
       CardType.values.forEach((type) {
-        newDeck.add(PlayingCard(
-          value: type,
-          suit: suit,
-          isFaceUp: false,
-        ));
+        newDeck.add(PlayingCard(value: type, suit: suit, isFaceUp: false));
       });
     });
 
@@ -107,33 +105,28 @@ class _PlayScreenState extends State<InvertPlayScreen> {
       body: new Column(
         children: <Widget>[
           //implement top card widget here,
-          SizedBox(
-            height: 80.0,
-          ),
+          SizedBox(height: 80.0),
           Text(
             'Eriatilos',
             style: TextStyle(
-                color: Colors.white,
-                fontSize: 30.0,
-                fontWeight: FontWeight.w500),
+              color: Colors.white,
+              fontSize: 30.0,
+              fontWeight: FontWeight.w500,
+            ),
           ),
-          SizedBox(
-            height: 20.0,
-          ),
+          SizedBox(height: 20.0),
           // the top row
           Row(
             children: <Widget>[
               Align(alignment: Alignment.centerLeft, child: _generateBoard()),
-              Spacer(
-                flex: 1,
-              ),
+              Spacer(flex: 1),
               Align(
-                  alignment: Alignment.centerRight, child: _buildFinalDecks()),
+                alignment: Alignment.centerRight,
+                child: _buildFinalDecks(),
+              ),
             ],
           ),
-          SizedBox(
-            height: 50.0,
-          ),
+          SizedBox(height: 50.0),
           Row(
             // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
@@ -148,8 +141,9 @@ class _PlayScreenState extends State<InvertPlayScreen> {
                     setState(() {
                       bottom0.addAll(cards);
                       int length = _getListFromIndex(index).length;
-                      _getListFromIndex(index)
-                          .removeRange(length - cards.length, length);
+                      _getListFromIndex(
+                        index,
+                      ).removeRange(length - cards.length, length);
                       _refreshList(index);
                     });
                   },
@@ -167,8 +161,9 @@ class _PlayScreenState extends State<InvertPlayScreen> {
                     setState(() {
                       bottom1.addAll(cards);
                       int length = _getListFromIndex(index).length;
-                      _getListFromIndex(index)
-                          .removeRange(length - cards.length, length);
+                      _getListFromIndex(
+                        index,
+                      ).removeRange(length - cards.length, length);
                       _refreshList(index);
                     });
                   },
@@ -186,8 +181,9 @@ class _PlayScreenState extends State<InvertPlayScreen> {
                     setState(() {
                       bottom2.addAll(cards);
                       int length = _getListFromIndex(index).length;
-                      _getListFromIndex(index)
-                          .removeRange(length - cards.length, length);
+                      _getListFromIndex(
+                        index,
+                      ).removeRange(length - cards.length, length);
                       _refreshList(index);
                     });
                   },
@@ -205,8 +201,9 @@ class _PlayScreenState extends State<InvertPlayScreen> {
                     setState(() {
                       bottom3.addAll(cards);
                       int length = _getListFromIndex(index).length;
-                      _getListFromIndex(index)
-                          .removeRange(length - cards.length, length);
+                      _getListFromIndex(
+                        index,
+                      ).removeRange(length - cards.length, length);
                       _refreshList(index);
                     });
                   },
@@ -224,8 +221,9 @@ class _PlayScreenState extends State<InvertPlayScreen> {
                     setState(() {
                       bottom4.addAll(cards);
                       int length = _getListFromIndex(index).length;
-                      _getListFromIndex(index)
-                          .removeRange(length - cards.length, length);
+                      _getListFromIndex(
+                        index,
+                      ).removeRange(length - cards.length, length);
                       _refreshList(index);
                     });
                   },
@@ -243,8 +241,9 @@ class _PlayScreenState extends State<InvertPlayScreen> {
                     setState(() {
                       bottom5.addAll(cards);
                       int length = _getListFromIndex(index).length;
-                      _getListFromIndex(index)
-                          .removeRange(length - cards.length, length);
+                      _getListFromIndex(
+                        index,
+                      ).removeRange(length - cards.length, length);
                       _refreshList(index);
                     });
                   },
@@ -262,8 +261,9 @@ class _PlayScreenState extends State<InvertPlayScreen> {
                     setState(() {
                       bottom6.addAll(cards);
                       int length = _getListFromIndex(index).length;
-                      _getListFromIndex(index)
-                          .removeRange(length - cards.length, length);
+                      _getListFromIndex(
+                        index,
+                      ).removeRange(length - cards.length, length);
                       _refreshList(index);
                     });
                   },
@@ -272,22 +272,21 @@ class _PlayScreenState extends State<InvertPlayScreen> {
               ),
             ],
           ),
-          Spacer(
-            flex: 1,
-          ),
-          FlatButton(
-            color: Colors.black,
+          Spacer(flex: 1),
+          TextButton(
+            style: TextButton.styleFrom(backgroundColor: Colors.black),
             child: new Text(
               'Reset Board',
               style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold),
+                color: Colors.white,
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             onPressed: () {
               _startFunction();
             },
-          )
+          ),
         ],
       ),
     );
@@ -323,18 +322,22 @@ class _PlayScreenState extends State<InvertPlayScreen> {
       // first card fisrt column
       if (i == 0) {
         PlayingCard card = deck[rand];
-        bottom0.add(card
-          ..isFaceUp = true
-          ..isOpened = true);
+        bottom0.add(
+          card
+            ..isFaceUp = true
+            ..isOpened = true,
+        );
         deck.removeAt(rand);
         // print("After 1st iteration : ${deck.length}" );
       } else if (i > 0 && i < 3) {
         //second card second column
         if (i == 2) {
           PlayingCard card = deck[rand];
-          bottom1.add(card
-            ..isFaceUp = true
-            ..isOpened = true);
+          bottom1.add(
+            card
+              ..isFaceUp = true
+              ..isOpened = true,
+          );
         } else {
           bottom1.add(deck[rand]);
         }
@@ -344,9 +347,11 @@ class _PlayScreenState extends State<InvertPlayScreen> {
         //third card third column
         if (i == 5) {
           PlayingCard card = deck[rand];
-          bottom2.add(card
-            ..isFaceUp = true
-            ..isOpened = true);
+          bottom2.add(
+            card
+              ..isFaceUp = true
+              ..isOpened = true,
+          );
         } else {
           bottom2.add(deck[rand]);
         }
@@ -356,9 +361,11 @@ class _PlayScreenState extends State<InvertPlayScreen> {
         // fourth card fourth column
         if (i == 9) {
           PlayingCard card = deck[rand];
-          bottom3.add(card
-            ..isFaceUp = true
-            ..isOpened = true);
+          bottom3.add(
+            card
+              ..isFaceUp = true
+              ..isOpened = true,
+          );
         } else {
           bottom3.add(deck[rand]);
         }
@@ -368,9 +375,11 @@ class _PlayScreenState extends State<InvertPlayScreen> {
         // 5th card 5th column
         if (i == 14) {
           PlayingCard card = deck[rand];
-          bottom4.add(card
-            ..isFaceUp = true
-            ..isOpened = true);
+          bottom4.add(
+            card
+              ..isFaceUp = true
+              ..isOpened = true,
+          );
         } else {
           bottom4.add(deck[rand]);
         }
@@ -380,9 +389,11 @@ class _PlayScreenState extends State<InvertPlayScreen> {
         if (i == 20) {
           //sixth card sixth column
           PlayingCard card = deck[rand];
-          bottom5.add(card
-            ..isFaceUp = true
-            ..isOpened = true);
+          bottom5.add(
+            card
+              ..isFaceUp = true
+              ..isOpened = true,
+          );
         } else {
           bottom5.add(deck[rand]);
         }
@@ -392,9 +403,11 @@ class _PlayScreenState extends State<InvertPlayScreen> {
         //last card of the last column
         if (i == 27) {
           PlayingCard card = deck[rand];
-          bottom6.add(card
-            ..isFaceUp = true
-            ..isOpened = true);
+          bottom6.add(
+            card
+              ..isFaceUp = true
+              ..isOpened = true,
+          );
         } else {
           bottom6.add(deck[rand]);
         }
@@ -419,9 +432,11 @@ class _PlayScreenState extends State<InvertPlayScreen> {
     // print(cardDeckClosed.last); /
     // then add the last cards of the above deck to the opened deck to make it open.
     // since it is open we know it is faceUP and opened is true
-    cardDeckOpened.add(cardDeckClosed.removeAt(cardDeckClosed.length - 1)
-      ..isFaceUp = true
-      ..isOpened = true);
+    cardDeckOpened.add(
+      cardDeckClosed.removeAt(cardDeckClosed.length - 1)
+        ..isFaceUp = true
+        ..isOpened = true,
+    );
     // print(cardDeckOpened.length);
     // print(cardDeckClosed.length + cardDeckOpened.length);
     setState(() {}); // setting the state of the game
@@ -459,7 +474,7 @@ class _PlayScreenState extends State<InvertPlayScreen> {
           title: Text("Congratulations!"),
           content: Text("You Win!"),
           actions: <Widget>[
-            FlatButton(
+            TextButton(
               onPressed: () {
                 _startFunction();
                 Navigator.pop(context);
@@ -486,8 +501,9 @@ class _PlayScreenState extends State<InvertPlayScreen> {
               onCardAccepted: (cards, index) {
                 finalHeartsDeck.addAll(cards);
                 int length = _getListFromIndex(index).length;
-                _getListFromIndex(index)
-                    .removeRange(length - cards.length, length);
+                _getListFromIndex(
+                  index,
+                ).removeRange(length - cards.length, length);
 
                 _refreshList(index);
               },
@@ -504,8 +520,9 @@ class _PlayScreenState extends State<InvertPlayScreen> {
               onCardAccepted: (cards, index) {
                 finalDiamondsDeck.addAll(cards);
                 int length = _getListFromIndex(index).length;
-                _getListFromIndex(index)
-                    .removeRange(length - cards.length, length);
+                _getListFromIndex(
+                  index,
+                ).removeRange(length - cards.length, length);
                 _refreshList(index);
               },
               columnIndex: 9,
@@ -521,8 +538,9 @@ class _PlayScreenState extends State<InvertPlayScreen> {
               onCardAccepted: (cards, index) {
                 finalSpadesDeck.addAll(cards);
                 int length = _getListFromIndex(index).length;
-                _getListFromIndex(index)
-                    .removeRange(length - cards.length, length);
+                _getListFromIndex(
+                  index,
+                ).removeRange(length - cards.length, length);
                 _refreshList(index);
               },
               columnIndex: 10,
@@ -538,8 +556,9 @@ class _PlayScreenState extends State<InvertPlayScreen> {
               onCardAccepted: (cards, index) {
                 finalClubsDeck.addAll(cards);
                 int length = _getListFromIndex(index).length;
-                _getListFromIndex(index)
-                    .removeRange(length - cards.length, length);
+                _getListFromIndex(
+                  index,
+                ).removeRange(length - cards.length, length);
                 _refreshList(index);
               },
               columnIndex: 11,
@@ -565,39 +584,43 @@ class _PlayScreenState extends State<InvertPlayScreen> {
                 //       ..isOpened = false;
                 //   }));
                 // } else {
-                cardDeckOpened.add(cardDeckClosed.removeLast()
-                  ..isFaceUp = true
-                  ..isOpened = true);
+                cardDeckOpened.add(
+                  cardDeckClosed.removeLast()
+                    ..isFaceUp = true
+                    ..isOpened = true,
+                );
                 // }
               });
             },
             child: Padding(
-                padding: EdgeInsets.all(5.0),
-                child: cardDeckClosed.isNotEmpty
-                    ? TransformCard(
-                        playingCard: cardDeckClosed.last,
-                      )
-                    : GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            // cardDeckOpened.reversed;
-                            cardDeckClosed
-                                .addAll(cardDeckOpened.reversed.map((card) {
+              padding: EdgeInsets.all(5.0),
+              child: cardDeckClosed.isNotEmpty
+                  ? TransformCard(playingCard: cardDeckClosed.last)
+                  : GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          // cardDeckOpened.reversed;
+                          cardDeckClosed.addAll(
+                            cardDeckOpened.reversed.map((card) {
                               return card
                                 ..isFaceUp = false
                                 ..isOpened = false;
-                            }));
-                            // cardDeckClosed.reversed;
-                            cardDeckOpened = [];
-                          });
-                        },
-                        child: Container(
-                          height: 60.0,
-                          width: 40.0,
-                          decoration: BoxDecoration(
-                              color: Colors.black26,
-                              border: Border.all(width: 2.0)),
-                        ))),
+                            }),
+                          );
+                          // cardDeckClosed.reversed;
+                          cardDeckOpened = [];
+                        });
+                      },
+                      child: Container(
+                        height: 60.0,
+                        width: 40.0,
+                        decoration: BoxDecoration(
+                          color: Colors.black26,
+                          border: Border.all(width: 2.0),
+                        ),
+                      ),
+                    ),
+            ),
           ),
           cardDeckOpened.isNotEmpty
               ? Padding(
@@ -608,10 +631,7 @@ class _PlayScreenState extends State<InvertPlayScreen> {
                     columnIndex: 0,
                   ),
                 )
-              : Container(
-                  width: 40.0,
-                  height: 60.0,
-                )
+              : Container(width: 40.0, height: 60.0),
         ],
       ),
     );
@@ -645,7 +665,7 @@ class _PlayScreenState extends State<InvertPlayScreen> {
       case 11:
         return finalClubsDeck;
       default:
-        return null;
+        throw RangeError.index(index, bottomDecks, 'index');
     }
   }
 }

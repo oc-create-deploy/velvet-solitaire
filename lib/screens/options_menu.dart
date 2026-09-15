@@ -14,76 +14,93 @@ class _OptionsState extends State<Options> {
         width: double.infinity,
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
-          gradient: RadialGradient(colors: [
-            Colors.green[200],
-            Colors.green[400],
-            Colors.green[600],
-            Colors.green[800],
-            Colors.green[900]
-          ], tileMode: TileMode.clamp, center: Alignment.center, radius: 1.5),
+          gradient: RadialGradient(
+            colors: [
+              Colors.green.shade200,
+              Colors.green.shade400,
+              Colors.green.shade600,
+              Colors.green.shade800,
+              Colors.green.shade900,
+            ],
+            tileMode: TileMode.clamp,
+            center: Alignment.center,
+            radius: 1.5,
+          ),
         ),
         child: ListView(
           // mainAxisAlignment: MainAxisAlignment.start,
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(top: 30.0 , bottom: 10.0),
+              padding: const EdgeInsets.only(top: 30.0, bottom: 10.0),
               child: Align(
                 alignment: Alignment.topCenter,
                 child: Text(
                   'SOLITAIRE',
                   style: TextStyle(
-                      fontSize: 70.0,
-                      fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.w800,
-                      color: Colors.white),
+                    fontSize: 70.0,
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
-            _optionCards('K', 'londike', 'assets/menu.png' , 5.0 , '/klondike'),
-            _optionCards('S', 'pider', 'assets/menu.png' , 50.0 , '/spider'),
+            _optionCards('K', 'londike', 'assets/menu.png', 5.0, '/klondike'),
+            _optionCards('S', 'pider', 'assets/menu.png', 50.0, '/spider'),
             _optionCards('I', 'nvert', 'assets/menu.png', 90.0, '/invert'),
             Container(
               margin: EdgeInsets.all(10.0),
               width: double.infinity,
               height: 200.0,
               child: Center(
-                  child: new Text(
-                'More modes coming soon!',
-                style: TextStyle(color: Colors.black, fontSize: 20.0 , fontWeight: FontWeight.bold),
-              )),
+                child: new Text(
+                  'More modes coming soon!',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
               decoration: BoxDecoration(
-                  border: Border.all(width: 2.0, color: Colors.black)),
+                border: Border.all(width: 2.0, color: Colors.black),
+              ),
             ),
-           SizedBox(
-             height: 100,
-           ),
+            SizedBox(height: 100),
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: FlatButton(
-                  color: Colors.black,
+                child: TextButton(
+                  style: TextButton.styleFrom(backgroundColor: Colors.black),
                   child: Text(
                     'Rules',
                     style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 40.0,
-                        fontWeight: FontWeight.w300),
+                      color: Colors.white,
+                      fontSize: 40.0,
+                      fontWeight: FontWeight.w300,
+                    ),
                   ),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/rule');
+                    Navigator.pushNamed(context, '/rules');
                   },
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget _optionCards(String firstLetter, String restName, String imgPath , double rightMargin , String pathName) {
+  Widget _optionCards(
+    String firstLetter,
+    String restName,
+    String imgPath,
+    double rightMargin,
+    String pathName,
+  ) {
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, pathName);
@@ -97,18 +114,16 @@ class _OptionsState extends State<Options> {
           width: double.infinity,
           height: 200.0,
           decoration: ShapeDecoration(
-              shape: Border.all(
-                width: 5.0,
-                color: Colors.blue[900],
+            shape: Border.all(width: 5.0, color: Colors.blue.shade900),
+            shadows: [
+              BoxShadow(
+                color: Colors.green.shade200,
+                offset: Offset(-200.0, 0.0),
+                blurRadius: 200.0,
               ),
-              shadows: [
-                BoxShadow(
-                  color: Colors.green[200],
-                  offset: Offset(-200.0, 0.0),
-                  blurRadius: 200.0,
-                )
-                // spreadRadius: .10)
-              ]),
+              // spreadRadius: .10)
+            ],
+          ),
           child: Stack(
             children: <Widget>[
               Container(
@@ -116,10 +131,7 @@ class _OptionsState extends State<Options> {
                 height: 250.0,
                 child: ClipPath(
                   clipper: PhotoClipper(),
-                  child: Image.asset(
-                    imgPath,
-                    fit: BoxFit.cover,
-                  ),
+                  child: Image.asset(imgPath, fit: BoxFit.cover),
                 ),
               ),
               SizedBox(width: 200.0),
@@ -129,9 +141,10 @@ class _OptionsState extends State<Options> {
                 child: Text(
                   firstLetter,
                   style: TextStyle(
-                      fontSize: 100.0,
-                      color: Colors.red,
-                      fontWeight: FontWeight.w700),
+                    fontSize: 100.0,
+                    color: Colors.red,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
               Positioned(
@@ -140,11 +153,12 @@ class _OptionsState extends State<Options> {
                 child: Text(
                   restName,
                   style: TextStyle(
-                      fontSize: 50.0,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w700),
+                    fontSize: 50.0,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -168,4 +182,3 @@ class PhotoClipper extends CustomClipper<Path> {
     return false;
   }
 }
-

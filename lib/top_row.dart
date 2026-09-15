@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:solitaire_flutter/playing_card.dart';
+import 'package:velvet_solitaire/playing_card.dart';
 import 'bottom_columns.dart';
 import 'moving_card.dart';
 
 class TopRow extends StatefulWidget {
-  final CardSuit suit;
+  final CardSuit? suit;
   final List<PlayingCard> cards;
   final CardAcceptCallback onCardAccepted;
   final int columnIndex;
@@ -13,15 +13,17 @@ class TopRow extends StatefulWidget {
   final bool isSpider2;
   final bool invert;
 
-  TopRow(
-      {this.suit,
-      this.cards,
-      this.onCardAccepted,
-      this.columnIndex,
-      this.isKlondike = true,
-      this.isSpider1 = false,
-      this.isSpider2 = false,
-      this.invert = false});
+  const TopRow({
+    super.key,
+    this.suit,
+    required this.cards,
+    required this.onCardAccepted,
+    required this.columnIndex,
+    this.isKlondike = true,
+    this.isSpider1 = false,
+    this.isSpider2 = false,
+    this.invert = false,
+  });
 
   _TopRowState createState() => _TopRowState();
 }
@@ -29,7 +31,7 @@ class TopRow extends StatefulWidget {
 class _TopRowState extends State<TopRow> {
   @override
   Widget build(BuildContext context) {
-    return DragTarget<Map>(
+    return DragTarget<Map<String, dynamic>>(
       builder: (context, listOne, listTwo) {
         return widget.cards.length == 0
             ? Container(
@@ -45,12 +47,11 @@ class _TopRowState extends State<TopRow> {
                 playingCard: widget.cards.last,
                 columnIndex: widget.columnIndex,
                 isFoundation: true,
-                attachedCards: [
-                  widget.cards.last,
-                ],
+                attachedCards: [widget.cards.last],
               );
       },
-      onWillAccept: (value) {
+      onWillAcceptWithDetails: (details) {
+        final value = details.data;
         if (widget.isKlondike) {
           PlayingCard addedCard = value["cards"].last;
 
@@ -86,19 +87,20 @@ class _TopRowState extends State<TopRow> {
               // }
             }
           } else if (widget.cards.length != 0) {
-            if (addedCard.getValue() ==
-                widget.cards.last.getValue()-1) {
+            if (addedCard.getValue() == widget.cards.last.getValue() - 1) {
               return true;
             }
           } else {
             return false;
           }
         }
+        return false;
       },
-      onAccept: (value) {
+      onAcceptWithDetails: (details) {
+        final value = details.data;
         widget.onCardAccepted(
-          value["cards"],
-          value["fromIndex"],
+          value["cards"] as List<PlayingCard>,
+          value["fromIndex"] as int,
         );
       },
     );
@@ -106,7 +108,7 @@ class _TopRowState extends State<TopRow> {
 
   // for diplaying top row suits
 
-  Image _suitImage() {
+  Widget _suitImage() {
     if (widget.suit == CardSuit.clubs) {
       return Image.asset('assets/clubs.png');
     } else if (widget.suit == CardSuit.diamonds) {
@@ -116,5 +118,6 @@ class _TopRowState extends State<TopRow> {
     } else if (widget.suit == CardSuit.hearts) {
       return Image.asset('assets/heart.png');
     }
+    return const SizedBox.shrink();
   }
 }

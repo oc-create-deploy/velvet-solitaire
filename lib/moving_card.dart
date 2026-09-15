@@ -7,17 +7,19 @@ class TransformCard extends StatefulWidget {
   final PlayingCard playingCard;
   final double transformDistance;
   final int transformIndex;
-  final int columnIndex;
+  final int? columnIndex;
   final List<PlayingCard> attachedCards;
-  final isFoundation;
+  final bool isFoundation;
 
-  TransformCard(
-      {@required this.playingCard,
-      this.transformDistance = 15.0,
-      this.transformIndex = 0,
-      this.columnIndex,
-      this.attachedCards,
-      this.isFoundation = false});
+  const TransformCard({
+    super.key,
+    required this.playingCard,
+    this.transformDistance = 15.0,
+    this.transformIndex = 0,
+    this.columnIndex,
+    this.attachedCards = const [],
+    this.isFoundation = false,
+  });
 
   @override
   _TransformCardState createState() => _TransformCardState();
@@ -28,7 +30,7 @@ class _TransformCardState extends State<TransformCard> {
   Widget build(BuildContext context) {
     double y = widget.transformDistance * widget.transformIndex;
     return Transform(
-      transform: Matrix4.identity()..translate(0.0, y, 0.0),
+      transform: Matrix4.translationValues(0.0, y, 0.0),
       child: _buildCards(),
     );
   }
@@ -55,11 +57,11 @@ class _TransformCardState extends State<TransformCard> {
               childWhenDragging: _buildFaceUpCard(),
               data: {
                 "cards": widget.attachedCards,
-                "fromIndex": widget.columnIndex
+                "fromIndex": widget.columnIndex,
               },
             );
-    } else if (widget.isFoundation == true) {
-      return Container(height: 60.0, width: 40.0, child: _buildFaceUpCard());
+    } else {
+      return SizedBox(height: 60.0, width: 40.0, child: _buildFaceUpCard());
     }
   }
 
@@ -87,17 +89,20 @@ class _TransformCardState extends State<TransformCard> {
       width: 40.0,
       height: 60.0,
       decoration: BoxDecoration(
-          color: Colors.white,
-          // borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(width: 0.5, color: Colors.black),
-          image: DecorationImage(
-              image: AssetImage('assets/${s + v}.png'), fit: BoxFit.cover)),
+        color: Colors.white,
+        // borderRadius: BorderRadius.circular(10.0),
+        border: Border.all(width: 0.5, color: Colors.black),
+        image: DecorationImage(
+          image: AssetImage('assets/${s + v}.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
     );
   }
 
   // get the value of the card
   String _assingValueToCard() {
-    String v;
+    String v = '';
 
     switch (widget.playingCard.value) {
       case (CardType.one):
@@ -139,15 +144,13 @@ class _TransformCardState extends State<TransformCard> {
       case (CardType.king):
         v = '13';
         break;
-      default:
-        v = "";
     }
     return v;
   }
 
   // to get the suit character from the check
   String _assignSuitToCard() {
-    String s;
+    String s = '';
 
     switch (widget.playingCard.suit) {
       case (CardSuit.clubs):
@@ -162,8 +165,6 @@ class _TransformCardState extends State<TransformCard> {
       case (CardSuit.spades):
         s = "S";
         break;
-      default:
-        s = "";
     }
     return s;
   }

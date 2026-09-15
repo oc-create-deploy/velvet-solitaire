@@ -2,10 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:solitaire_flutter/playing_card.dart';
-import 'package:solitaire_flutter/moving_card.dart';
-import 'package:solitaire_flutter/bottom_columns.dart';
-import 'package:solitaire_flutter/top_row.dart';
+import 'package:velvet_solitaire/playing_card.dart';
+import 'package:velvet_solitaire/bottom_columns.dart';
+import 'package:velvet_solitaire/top_row.dart';
 
 class SpiderPlayScreen extends StatefulWidget {
   @override
@@ -15,8 +14,10 @@ class SpiderPlayScreen extends StatefulWidget {
 class _SpiderPlayScreenState extends State<SpiderPlayScreen> {
   @override
   void initState() {
-    SystemChrome.setPreferredOrientations(
-        [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
     _startFunction();
     super.initState();
   }
@@ -25,35 +26,35 @@ class _SpiderPlayScreenState extends State<SpiderPlayScreen> {
   void dispose() {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitDown,
-      DeviceOrientation.portraitUp
+      DeviceOrientation.portraitUp,
     ]);
     super.dispose();
   }
 
-  List<PlayingCard> column0 = List(); // column 1
-  List<PlayingCard> column1 = List(); // 2
-  List<PlayingCard> column2 = List(); // 3
-  List<PlayingCard> column3 = List(); // 4
-  List<PlayingCard> column4 = List(); //5
-  List<PlayingCard> column5 = List(); //6
-  List<PlayingCard> column6 = List(); //7
-  List<PlayingCard> column7 = List(); //8
-  List<PlayingCard> column8 = List(); //9
-  List<PlayingCard> column9 = List(); //10
+  List<PlayingCard> column0 = []; // column 1
+  List<PlayingCard> column1 = []; // 2
+  List<PlayingCard> column2 = []; // 3
+  List<PlayingCard> column3 = []; // 4
+  List<PlayingCard> column4 = []; //5
+  List<PlayingCard> column5 = []; //6
+  List<PlayingCard> column6 = []; //7
+  List<PlayingCard> column7 = []; //8
+  List<PlayingCard> column8 = []; //9
+  List<PlayingCard> column9 = []; //10
 
   List<PlayingCard> deck = [];
 
-  // List<PlayingCard> cardDeckOpened = List(); no need for open deck since we know what is opened by the bool
-  List<PlayingCard> cardDeckClosed = List();
+  // List<PlayingCard> cardDeckOpened = []; no need for open deck since we know what is opened by the bool
+  List<PlayingCard> cardDeckClosed = [];
 
-  List<PlayingCard> finalDeck1 = List();
-  List<PlayingCard> finalDeck2 = List();
-  List<PlayingCard> finalDeck3 = List();
-  List<PlayingCard> finalDeck4 = List();
-  List<PlayingCard> finalDeck5 = List();
-  List<PlayingCard> finalDeck6 = List();
-  List<PlayingCard> finalDeck7 = List();
-  List<PlayingCard> finalDeck8 = List();
+  List<PlayingCard> finalDeck1 = [];
+  List<PlayingCard> finalDeck2 = [];
+  List<PlayingCard> finalDeck3 = [];
+  List<PlayingCard> finalDeck4 = [];
+  List<PlayingCard> finalDeck5 = [];
+  List<PlayingCard> finalDeck6 = [];
+  List<PlayingCard> finalDeck7 = [];
+  List<PlayingCard> finalDeck8 = [];
 
   List<PlayingCard> _makeDeck() {
     List<PlayingCard> newDeck = [];
@@ -61,7 +62,8 @@ class _SpiderPlayScreenState extends State<SpiderPlayScreen> {
     CardSuit.values.forEach((suit) {
       CardType.values.forEach((value) {
         newDeck.add(
-            PlayingCard(value: value, suit: CardSuit.hearts, isFaceUp: false));
+          PlayingCard(value: value, suit: CardSuit.hearts, isFaceUp: false),
+        );
       });
     });
     return newDeck;
@@ -98,8 +100,9 @@ class _SpiderPlayScreenState extends State<SpiderPlayScreen> {
                     setState(() {
                       column0.addAll(cards);
                       int length = _getListFromIndex(index).length;
-                      _getListFromIndex(index)
-                          .removeRange(length - cards.length, length);
+                      _getListFromIndex(
+                        index,
+                      ).removeRange(length - cards.length, length);
                       _refreshList(index);
                     });
                   },
@@ -114,8 +117,9 @@ class _SpiderPlayScreenState extends State<SpiderPlayScreen> {
                     setState(() {
                       column1.addAll(cards);
                       int length = _getListFromIndex(index).length;
-                      _getListFromIndex(index)
-                          .removeRange(length - cards.length, length);
+                      _getListFromIndex(
+                        index,
+                      ).removeRange(length - cards.length, length);
                       _refreshList(index);
                     });
                   },
@@ -130,8 +134,9 @@ class _SpiderPlayScreenState extends State<SpiderPlayScreen> {
                     setState(() {
                       column2.addAll(cards);
                       int length = _getListFromIndex(index).length;
-                      _getListFromIndex(index)
-                          .removeRange(length - cards.length, length);
+                      _getListFromIndex(
+                        index,
+                      ).removeRange(length - cards.length, length);
                       _refreshList(index);
                     });
                   },
@@ -146,8 +151,9 @@ class _SpiderPlayScreenState extends State<SpiderPlayScreen> {
                     setState(() {
                       column3.addAll(cards);
                       int length = _getListFromIndex(index).length;
-                      _getListFromIndex(index)
-                          .removeRange(length - cards.length, length);
+                      _getListFromIndex(
+                        index,
+                      ).removeRange(length - cards.length, length);
                       _refreshList(index);
                     });
                   },
@@ -162,8 +168,9 @@ class _SpiderPlayScreenState extends State<SpiderPlayScreen> {
                     setState(() {
                       column4.addAll(cards);
                       int length = _getListFromIndex(index).length;
-                      _getListFromIndex(index)
-                          .removeRange(length - cards.length, length);
+                      _getListFromIndex(
+                        index,
+                      ).removeRange(length - cards.length, length);
                       _refreshList(index);
                     });
                   },
@@ -178,8 +185,9 @@ class _SpiderPlayScreenState extends State<SpiderPlayScreen> {
                     setState(() {
                       column5.addAll(cards);
                       int length = _getListFromIndex(index).length;
-                      _getListFromIndex(index)
-                          .removeRange(length - cards.length, length);
+                      _getListFromIndex(
+                        index,
+                      ).removeRange(length - cards.length, length);
                       _refreshList(index);
                     });
                   },
@@ -194,8 +202,9 @@ class _SpiderPlayScreenState extends State<SpiderPlayScreen> {
                     setState(() {
                       column6.addAll(cards);
                       int length = _getListFromIndex(index).length;
-                      _getListFromIndex(index)
-                          .removeRange(length - cards.length, length);
+                      _getListFromIndex(
+                        index,
+                      ).removeRange(length - cards.length, length);
                       _refreshList(index);
                     });
                   },
@@ -210,8 +219,9 @@ class _SpiderPlayScreenState extends State<SpiderPlayScreen> {
                     setState(() {
                       column7.addAll(cards);
                       int length = _getListFromIndex(index).length;
-                      _getListFromIndex(index)
-                          .removeRange(length - cards.length, length);
+                      _getListFromIndex(
+                        index,
+                      ).removeRange(length - cards.length, length);
                       _refreshList(index);
                     });
                   },
@@ -226,8 +236,9 @@ class _SpiderPlayScreenState extends State<SpiderPlayScreen> {
                     setState(() {
                       column8.addAll(cards);
                       int length = _getListFromIndex(index).length;
-                      _getListFromIndex(index)
-                          .removeRange(length - cards.length, length);
+                      _getListFromIndex(
+                        index,
+                      ).removeRange(length - cards.length, length);
                       _refreshList(index);
                     });
                   },
@@ -242,17 +253,16 @@ class _SpiderPlayScreenState extends State<SpiderPlayScreen> {
                     setState(() {
                       column9.addAll(cards);
                       int length = _getListFromIndex(index).length;
-                      _getListFromIndex(index)
-                          .removeRange(length - cards.length, length);
+                      _getListFromIndex(
+                        index,
+                      ).removeRange(length - cards.length, length);
                       _refreshList(index);
                     });
                   },
                 ),
               ],
             ),
-            Spacer(
-              flex: 1,
-            ),
+            Spacer(flex: 1),
             // foundation and deck
             Padding(
               padding: const EdgeInsets.all(10.0),
@@ -261,8 +271,10 @@ class _SpiderPlayScreenState extends State<SpiderPlayScreen> {
                   _buildFinalDecks(),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: FlatButton(
-                      color: Colors.black,
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.black,
+                      ),
                       onPressed: () {
                         setState(() {
                           _startFunction();
@@ -271,15 +283,14 @@ class _SpiderPlayScreenState extends State<SpiderPlayScreen> {
                       child: Text(
                         'Reset Board',
                         style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.w400),
+                          color: Colors.white,
+                          fontSize: 25.0,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ),
                   ),
-                  SizedBox(
-                    width: 70.0,
-                  ),
+                  SizedBox(width: 70.0),
                   GestureDetector(
                     onTap: () {
                       _dealCards();
@@ -289,23 +300,29 @@ class _SpiderPlayScreenState extends State<SpiderPlayScreen> {
                             width: 40.0,
                             height: 60.0,
                             decoration: BoxDecoration(
-                                color: Colors.redAccent,
-                                border:
-                                    Border.all(width: 2.0, color: Colors.black),
-                                borderRadius: BorderRadius.circular(10.0)),
+                              color: Colors.redAccent,
+                              border: Border.all(
+                                width: 2.0,
+                                color: Colors.black,
+                              ),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
                           )
                         : Container(
                             width: 40.0,
                             height: 60.0,
                             decoration: BoxDecoration(
-                                border:
-                                    Border.all(width: 2.0, color: Colors.black),
-                                color: Colors.black26),
+                              border: Border.all(
+                                width: 2.0,
+                                color: Colors.black,
+                              ),
+                              color: Colors.black26,
+                            ),
                           ),
-                  )
+                  ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -468,7 +485,7 @@ class _SpiderPlayScreenState extends State<SpiderPlayScreen> {
           title: Text("Congratulations!"),
           content: Text("You Win!"),
           actions: <Widget>[
-            FlatButton(
+            TextButton(
               onPressed: () {
                 _startFunction();
                 Navigator.pop(context);
@@ -522,7 +539,7 @@ class _SpiderPlayScreenState extends State<SpiderPlayScreen> {
       case 18:
         return finalDeck8;
       default:
-        return null;
+        throw RangeError.value(index, 'index', 'Unknown card column');
     }
   }
 
@@ -540,8 +557,9 @@ class _SpiderPlayScreenState extends State<SpiderPlayScreen> {
               onCardAccepted: (cards, index) {
                 finalDeck1.addAll(cards);
                 int length = _getListFromIndex(index).length;
-                _getListFromIndex(index)
-                    .removeRange(length - cards.length, length);
+                _getListFromIndex(
+                  index,
+                ).removeRange(length - cards.length, length);
                 _refreshList(index);
               },
               columnIndex: 11,
@@ -557,8 +575,9 @@ class _SpiderPlayScreenState extends State<SpiderPlayScreen> {
               onCardAccepted: (cards, index) {
                 finalDeck2.addAll(cards);
                 int length = _getListFromIndex(index).length;
-                _getListFromIndex(index)
-                    .removeRange(length - cards.length, length);
+                _getListFromIndex(
+                  index,
+                ).removeRange(length - cards.length, length);
                 _refreshList(index);
               },
               columnIndex: 12,
@@ -574,8 +593,9 @@ class _SpiderPlayScreenState extends State<SpiderPlayScreen> {
               onCardAccepted: (cards, index) {
                 finalDeck3.addAll(cards);
                 int length = _getListFromIndex(index).length;
-                _getListFromIndex(index)
-                    .removeRange(length - cards.length, length);
+                _getListFromIndex(
+                  index,
+                ).removeRange(length - cards.length, length);
                 _refreshList(index);
               },
               columnIndex: 13,
@@ -591,8 +611,9 @@ class _SpiderPlayScreenState extends State<SpiderPlayScreen> {
               onCardAccepted: (cards, index) {
                 finalDeck4.addAll(cards);
                 int length = _getListFromIndex(index).length;
-                _getListFromIndex(index)
-                    .removeRange(length - cards.length, length);
+                _getListFromIndex(
+                  index,
+                ).removeRange(length - cards.length, length);
                 _refreshList(index);
               },
               columnIndex: 14,
@@ -608,8 +629,9 @@ class _SpiderPlayScreenState extends State<SpiderPlayScreen> {
               onCardAccepted: (cards, index) {
                 finalDeck5.addAll(cards);
                 int length = _getListFromIndex(index).length;
-                _getListFromIndex(index)
-                    .removeRange(length - cards.length, length);
+                _getListFromIndex(
+                  index,
+                ).removeRange(length - cards.length, length);
                 _refreshList(index);
               },
               columnIndex: 15,
@@ -625,8 +647,9 @@ class _SpiderPlayScreenState extends State<SpiderPlayScreen> {
               onCardAccepted: (cards, index) {
                 finalDeck6.addAll(cards);
                 int length = _getListFromIndex(index).length;
-                _getListFromIndex(index)
-                    .removeRange(length - cards.length, length);
+                _getListFromIndex(
+                  index,
+                ).removeRange(length - cards.length, length);
                 _refreshList(index);
               },
               columnIndex: 16,
@@ -642,8 +665,9 @@ class _SpiderPlayScreenState extends State<SpiderPlayScreen> {
               onCardAccepted: (cards, index) {
                 finalDeck7.addAll(cards);
                 int length = _getListFromIndex(index).length;
-                _getListFromIndex(index)
-                    .removeRange(length - cards.length, length);
+                _getListFromIndex(
+                  index,
+                ).removeRange(length - cards.length, length);
                 _refreshList(index);
               },
               columnIndex: 17,
@@ -659,8 +683,9 @@ class _SpiderPlayScreenState extends State<SpiderPlayScreen> {
               onCardAccepted: (cards, index) {
                 finalDeck8.addAll(cards);
                 int length = _getListFromIndex(index).length;
-                _getListFromIndex(index)
-                    .removeRange(length - cards.length, length);
+                _getListFromIndex(
+                  index,
+                ).removeRange(length - cards.length, length);
                 _refreshList(index);
               },
               columnIndex: 18,
@@ -685,8 +710,6 @@ class _SpiderPlayScreenState extends State<SpiderPlayScreen> {
         column8.add(cardDeckClosed.removeLast()..isFaceUp = true);
         column9.add(cardDeckClosed.removeLast()..isFaceUp = true);
       });
-    } else {
-      return null;
     }
   }
 }
