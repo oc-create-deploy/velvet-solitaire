@@ -1,0 +1,10 @@
+appId: Com.play.solitairegame
+---
+- tapOn:
+    point: "50%,28%"
+- waitForAnimationToEnd
+- takeScreenshot: 02-klondike-board
+- tapOn:
+    point: "8%,21%"
+- waitForAnimationToEnd
+- takeScreenshot: 03-klondike-gameplay
