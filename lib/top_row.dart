@@ -52,47 +52,25 @@ class _TopRowState extends State<TopRow> {
       },
       onWillAcceptWithDetails: (details) {
         final value = details.data;
-        if (widget.isKlondike) {
-          PlayingCard addedCard = value["cards"].last;
-
-          if (widget.suit == addedCard.suit) {
-            if (addedCard.suit == widget.suit) {
-              if (CardType.values.indexOf(addedCard.value) ==
-                  widget.cards.length) {
-                return true;
-              }
-            }
+        final cards = value["cards"] as List<PlayingCard>;
+        if (cards.isEmpty || cards.any((card) => !card.isFaceUp)) return false;
+        if (widget.isKlondike || widget.invert) {
+          if (cards.length != 1) return false;
+          final card = cards.single;
+          if (card.suit != widget.suit) return false;
+          if (widget.isKlondike) {
+            return card.getValue() == widget.cards.length + 1;
           }
-        } else if (widget.isSpider1) {
-          List<PlayingCard> addedCards = value["cards"];
-
-          if (addedCards.first.value == CardType.king) {
-            if (addedCards.last.value == CardType.one) {
-              return true;
-            } else {
+          return card.getValue() == 13 - widget.cards.length;
+        }
+        if (widget.isSpider1 || widget.isSpider2) {
+          if (cards.length != 13) return false;
+          for (var i = 0; i < 13; i++) {
+            if (cards[i].getValue() != 13 - i ||
+                cards[i].suit != cards.first.suit)
               return false;
-            }
           }
-        } else if (widget.invert) {
-          PlayingCard addedCard = value["cards"].last;
-
-          if (widget.cards.length == 0) {
-            if (widget.suit == addedCard.suit) {
-              if (addedCard.value == CardType.king) {
-                return true;
-              }
-              // if (addedCard.getValue() ==
-              //     widget.cards.last.getValue() - widget.cards.length) {
-              //   return true;
-              // }
-            }
-          } else if (widget.cards.length != 0) {
-            if (addedCard.getValue() == widget.cards.last.getValue() - 1) {
-              return true;
-            }
-          } else {
-            return false;
-          }
+          return true;
         }
         return false;
       },

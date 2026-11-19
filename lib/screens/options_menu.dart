@@ -1,184 +1,100 @@
 import 'package:flutter/material.dart';
 
-class Options extends StatefulWidget {
+class Options extends StatelessWidget {
+  const Options({super.key});
   @override
-  _OptionsState createState() => _OptionsState();
-}
-
-class _OptionsState extends State<Options> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.green,
-      body: Container(
-        width: double.infinity,
-        height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-          gradient: RadialGradient(
-            colors: [
-              Colors.green.shade200,
-              Colors.green.shade400,
-              Colors.green.shade600,
-              Colors.green.shade800,
-              Colors.green.shade900,
-            ],
-            tileMode: TileMode.clamp,
-            center: Alignment.center,
-            radius: 1.5,
-          ),
-        ),
-        child: ListView(
-          // mainAxisAlignment: MainAxisAlignment.start,
-          // crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 30.0, bottom: 10.0),
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Text(
-                  'SOLITAIRE',
-                  style: TextStyle(
-                    fontSize: 70.0,
-                    fontStyle: FontStyle.italic,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.white,
-                  ),
+  Widget build(BuildContext context) => Scaffold(
+    backgroundColor: const Color(0xff082f28),
+    body: SafeArea(
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 520),
+          child: ListView(
+            padding: const EdgeInsets.all(24),
+            children: [
+              const SizedBox(height: 24),
+              const Icon(Icons.style, color: Color(0xffdfc886), size: 64),
+              const SizedBox(height: 20),
+              const Text(
+                'Velvet Solitaire',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 34,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
               ),
-            ),
-            _optionCards('K', 'londike', 'assets/menu.png', 5.0, '/klondike'),
-            _optionCards('S', 'pider', 'assets/menu.png', 50.0, '/spider'),
-            _optionCards('I', 'nvert', 'assets/menu.png', 90.0, '/invert'),
-            Container(
-              margin: EdgeInsets.all(10.0),
-              width: double.infinity,
-              height: 200.0,
-              child: Center(
-                child: new Text(
-                  'More modes coming soon!',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+              const SizedBox(height: 12),
+              const Text(
+                'A quiet moment. A fresh deck.',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 17, color: Color(0xffb7d9cb)),
               ),
-              decoration: BoxDecoration(
-                border: Border.all(width: 2.0, color: Colors.black),
+              const SizedBox(height: 32),
+              _mode(
+                context,
+                'Klondike',
+                'The classic seven-column challenge',
+                '/klondike',
               ),
-            ),
-            SizedBox(height: 100),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: TextButton(
-                  style: TextButton.styleFrom(backgroundColor: Colors.black),
-                  child: Text(
-                    'Rules',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 40.0,
-                      fontWeight: FontWeight.w300,
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/rules');
-                  },
-                ),
+              _mode(
+                context,
+                'Spider',
+                'Build complete descending sequences',
+                '/spider',
               ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _optionCards(
-    String firstLetter,
-    String restName,
-    String imgPath,
-    double rightMargin,
-    String pathName,
-  ) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, pathName);
-      },
-      child: Card(
-        color: Colors.transparent,
-        borderOnForeground: true,
-        // shape: Border.all(width: 2.0 , color: Colors.black),
-        margin: EdgeInsets.all(10.0),
-        child: Container(
-          width: double.infinity,
-          height: 200.0,
-          decoration: ShapeDecoration(
-            shape: Border.all(width: 5.0, color: Colors.blue.shade900),
-            shadows: [
-              BoxShadow(
-                color: Colors.green.shade200,
-                offset: Offset(-200.0, 0.0),
-                blurRadius: 200.0,
+              _mode(
+                context,
+                'Invert',
+                'A fresh twist: build foundations downward',
+                '/invert',
               ),
-              // spreadRadius: .10)
-            ],
-          ),
-          child: Stack(
-            children: <Widget>[
-              Container(
-                width: 450.0,
-                height: 250.0,
-                child: ClipPath(
-                  clipper: PhotoClipper(),
-                  child: Image.asset(imgPath, fit: BoxFit.cover),
-                ),
-              ),
-              SizedBox(width: 200.0),
-              Positioned(
-                left: 150.0,
-                bottom: 2.0,
-                child: Text(
-                  firstLetter,
-                  style: TextStyle(
-                    fontSize: 100.0,
-                    color: Colors.red,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-              Positioned(
-                right: rightMargin,
-                bottom: 25.0,
-                child: Text(
-                  restName,
-                  style: TextStyle(
-                    fontSize: 50.0,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w700,
-                  ),
+              const SizedBox(height: 16),
+              TextButton(
+                onPressed: () => Navigator.pushNamed(context, '/rules'),
+                child: const Text(
+                  'How to play',
+                  style: TextStyle(color: Color(0xffdfc886), fontSize: 18),
                 ),
               ),
             ],
           ),
         ),
       ),
-    );
-  }
-}
-
-class PhotoClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final path = Path();
-    path.lineTo(0.0, size.height);
-    path.lineTo(size.width, 0.0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) {
-    return false;
-  }
+    ),
+  );
+  Widget _mode(
+    BuildContext context,
+    String title,
+    String subtitle,
+    String route,
+  ) => Padding(
+    padding: const EdgeInsets.only(bottom: 16),
+    child: Card(
+      color: const Color(0xff155444),
+      child: ListTile(
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 18,
+        ),
+        title: Text(
+          title,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 23,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        subtitle: Padding(
+          padding: const EdgeInsets.only(top: 8),
+          child: Text(
+            subtitle,
+            style: const TextStyle(color: Color(0xffc4e0d4), fontSize: 15),
+          ),
+        ),
+        trailing: const Icon(Icons.chevron_right, color: Color(0xffdfc886)),
+        onTap: () => Navigator.pushNamed(context, route),
+      ),
+    ),
+  );
 }

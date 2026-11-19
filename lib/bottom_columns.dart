@@ -106,13 +106,14 @@ class _CardColumnState extends State<CardColumn> {
                 List<PlayingCard> draggedCard = value["cards"];
                 PlayingCard card = draggedCard.first;
 
-                if (widget.cards.length == 0) {
-                  if (card.value == CardType.king) {
-                    return true;
-                  } else {
+                if (draggedCard.any((c) => !c.isFaceUp)) return false;
+                for (var i = 1; i < draggedCard.length; i++) {
+                  if (draggedCard[i].suit != draggedCard.first.suit ||
+                      draggedCard[i - 1].getValue() !=
+                          draggedCard[i].getValue() + 1)
                     return false;
-                  }
                 }
+                if (widget.cards.isEmpty) return true;
 
                 int lastCardIndex = CardType.values.indexOf(
                   widget.cards.last.value,

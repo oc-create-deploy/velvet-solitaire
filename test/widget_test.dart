@@ -14,6 +14,6 @@ void main() {
     await tester.pumpWidget(const MyApp());
     await tester.pumpAndSettle();
 
-    expect(find.text('SOLITAIRE'), findsOneWidget);
+    expect(find.text('Velvet Solitaire'), findsOneWidget);
   });
 }

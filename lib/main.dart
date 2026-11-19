@@ -14,7 +14,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Velvet Solitaire',
-      theme: ThemeData.light(),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xffdfc886),
+          brightness: Brightness.dark,
+        ),
+        scaffoldBackgroundColor: const Color(0xff082f28),
+      ),
       debugShowCheckedModeBanner: false,
       initialRoute: '/menu',
       routes: {

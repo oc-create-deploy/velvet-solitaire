@@ -47,7 +47,7 @@ class _TransformCardState extends State<TransformCard> {
                 border: Border.all(width: 1.0, color: Colors.black),
               ),
             )
-          : Draggable<Map>(
+          : Draggable<Map<String, dynamic>>(
               child: _buildFaceUpCard(),
               feedback: CardColumn(
                 cards: widget.attachedCards,
