@@ -147,8 +147,9 @@ Future<void> checkPlayableModes(
     expect(t.takeException(), isNull);
     await state.saveQueue;
     final savedBoard = state.game.encode();
-    ScaffoldMessenger.of(t.element(find.byType(SolitaireTable)))
-        .clearSnackBars();
+    ScaffoldMessenger.of(
+      t.element(find.byType(SolitaireTable)),
+    ).clearSnackBars();
     await t.pageBack();
     await t.pumpAndSettle();
     await t.ensureVisible(find.text(name));
