@@ -322,7 +322,7 @@ class SolitaireTableState extends State<SolitaireTable> {
       textAlign: TextAlign.center,
       style: TextStyle(
         color: const Color(0xffdfc886),
-        fontSize: min(width * .4, 22),
+        fontSize: label == 'Waste' ? width * .24 : min(width * .4, 22),
       ),
     ),
   );

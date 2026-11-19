@@ -16,6 +16,12 @@ void main() {
         t,
         mockPreferences: false,
         capture: (name) async {
+          // Native screenshot RPC can observe a compositor frame behind the
+          // settled widget tree; allow route rasterization to finish in real time.
+          await t.runAsync(
+            () => Future<void>.delayed(const Duration(milliseconds: 600)),
+          );
+          await t.pumpAndSettle();
           await binding.takeScreenshot(name);
         },
       );

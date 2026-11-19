@@ -25,4 +25,6 @@
 6. Only after acceptance: merge/push final source, signed device build, Apple VALID, intended tester group/build membership and beta state verified.
 
 ## Status
-Implementation and local regression tests in progress. Native render/gameplay review, final release and replacement distribution NOT YET PASSED. Existing TestFlight build is not this repaired source.
+Native QA 44493562861 passed on 2026-11-19: all three modes executed draw/undo, real legal touch moves, rules, new-deal confirmation/cancel and saved-board restoration using native iOS preferences. Log reports All tests passed; screenshots show accepted tableau moves in Klondike/Spider and a foundation move in Invert. Local suite passed 11 tests, including three viewport sizes.
+
+Manual capture inspection found a wrapped Waste label and route-transition remnants in initial screenshots. Reduced that label font and added a real compositor settling delay before native screenshots; final native recheck of this polish pending. No physical device available or claimed. Final main merge, signed release and replacement TestFlight distribution NOT YET PASSED.
