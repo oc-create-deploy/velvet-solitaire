@@ -28,3 +28,9 @@
 Native QA 44493562861 passed on 2026-11-19: all three modes executed draw/undo, real legal touch moves, rules, new-deal confirmation/cancel and saved-board restoration using native iOS preferences. Log reports All tests passed; screenshots show accepted tableau moves in Klondike/Spider and a foundation move in Invert. Local suite passed 11 tests, including three viewport sizes.
 
 Manual capture inspection found a wrapped Waste label and route-transition remnants in initial screenshots. Reduced that label font and added a real compositor settling delay before native screenshots; final native recheck of this polish pending. No physical device available or claimed. Final main merge, signed release and replacement TestFlight distribution NOT YET PASSED.
+
+
+## Final native acceptance — 2026-11-19 10:03 UTC
+QA 44499639333 passed the same three-mode integration suite on source fbbad70969baa95cbc3b3f40adec93c2a01569e5. Manually inspected all seven menu/deal/moved PNGs: Waste label is readable on one line, route-transition remnants gone, all ten Spider columns and seven Klondike/Invert columns visible, legal accepted moves visible with move counts. Native log reports All tests passed. Explicit simulator debug endpoint attachment resolved intermittent unified-log discovery hangs; no acceptance assertions removed.
+
+Source fast-forwarded to main after acceptance. TestFlight build 3 release requested separately; deployment remains pending Apple processing and intended tester-group/beta-state verification.
